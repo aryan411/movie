@@ -1,0 +1,53 @@
+<div class="movie-card" [class.has-backdrop]="movie.backdrop_path">
+    <!-- Poster Image -->
+    <div class="poster-container">
+      <img
+        [src]="getImageUrl(movie.poster_path)"
+        [alt]="movie.title + ' poster'"
+        class="poster"
+        loading="lazy"
+      />
+      <div class="rating-badge" [style.--rating-color]="getRatingColor(movie.vote_average)">
+        {{ movie.vote_average.toFixed(1) }}
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <div class="header">
+        <h3 class="title" [title]="movie.title">{{ movie.title }}</h3>
+        <span class="year">{{ getYear(movie.release_date) }}</span>
+      </div>
+
+      <!-- Meta Information -->
+      <div class="meta">
+        <span class="vote-count" title="Vote Count">
+          👥 {{ formatNumber(movie.vote_count) }}
+        </span>
+        <span class="popularity" title="Popularity">
+          🔥 {{ formatNumber(movie.popularity) }}
+        </span>
+        <span *ngIf="movie.adult" class="adult-badge">18+</span>
+      </div>
+
+      <!-- Overview -->
+      <p class="overview">{{ truncateText(movie.overview, 120) }}</p>
+
+      <!-- Footer -->
+      <div class="footer">
+        <span class="language">{{ movie.original_language.toUpperCase() }}</span>
+        <button class="more-info" (click)="onMoreInfo(movie.id)">
+          More Info
+        </button>
+      </div>
+    </div>
+
+    <!-- Hover Effect Backdrop -->
+    <div *ngIf="movie.backdrop_path" class="backdrop-hover">
+      <img
+        [src]="getImageUrl(movie.backdrop_path)"
+        [alt]="movie.title + ' backdrop'"
+        loading="lazy"
+      />
+    </div>
+  </div>

@@ -1,0 +1,61 @@
+<div class="movie-header">
+  <div class="container">
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit(1)">
+      <!-- Search Bar -->
+      <div class="search-container">
+        <input
+          type="text"
+          formControlName="search"
+          placeholder="Search movies..."
+          class="search-input"
+        />
+
+        <button type="submit">Search</button>
+      </div>
+    </form>
+    <form [formGroup]="filterForm" (ngSubmit)="onSubmit(2)">
+      <div class="filter-form">
+        <!-- Genre Dropdown -->
+        <select formControlName="genreId" class="filter-select">
+          <option [value]="null">All Genres</option>
+          <option *ngFor="let genre of genres" [value]="genre.id">
+            {{ genre.name }}
+          </option>
+        </select>
+
+        <!-- Year Dropdown -->
+        <select formControlName="year" class="filter-select">
+          <option [value]="null">Release Year</option>
+          <option *ngFor="let year of years" [value]="year">
+            {{ year }}
+          </option>
+        </select>
+
+        <!-- Sort Dropdown -->
+        <select formControlName="sortBy" class="filter-select">
+          <option [value]="null">Sort By</option>
+          <option *ngFor="let option of sortOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+    </form>
+  </div>
+</div>
+
+<app-movie-list
+  [isLoading]="isLoading"
+  [error]="error"
+  (fetchMoviesEmit)="fetchTrendingMovies()"
+  [hasMoreMovies]="hadMoreMovies"
+  (loadMoreEmit)="loadMore()"
+  [movieList]="movieList"
+></app-movie-list>
+
+<button
+  class="scroll-to-top"
+  *ngIf="showScrollToTop"
+  (click)="scrollToTop()"
+>
+  ⬆
+</button>

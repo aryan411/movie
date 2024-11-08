@@ -1,0 +1,39 @@
+<main class="main container">
+   
+
+    <!-- Movies Grid -->
+    <div *ngIf="movieList.length > 0" class="movies-grid">
+      <app-movie-card
+        *ngFor="let movie of movieList"
+        [movie]="movie"
+        (moreInfo)="onMovieSelect($event)"
+      ></app-movie-card>
+    </div>
+
+     <!-- Loading State -->
+     <div *ngIf="isLoading" class="loading-state">
+        <div class="loader"></div>
+        <p>Loading movies...</p>
+      </div>
+
+      
+    <!-- Error State -->
+    <div *ngIf="error" class="error-state">
+      <p>{{ error }}</p>
+      <button (click)="fetchMovies()" class="retry-btn">Try Again</button>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!isLoading && !error && movieList.length === 0" class="empty-state">
+      <p>No movies found matching your criteria</p>
+    </div>
+
+
+
+    <!-- Load More -->
+    <div *ngIf="hasMoreMovies && !isLoading" class="load-more">
+      <button (click)="loadMore()" class="load-more-btn">
+        Load More Movies
+      </button>
+    </div>
+  </main>
