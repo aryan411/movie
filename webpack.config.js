@@ -31,7 +31,7 @@ module.exports = {
         name: "moviesMf",
         filename: "remoteEntry.js",
         exposes: {
-            './Module': './projects/movies-mf/src/modules/movies-mf/movies-mf.module.ts',
+            './Module': './projects/movies-mf/src/modules/movie/movies-mf.module.ts',
         },
 
         // For hosts (please adjust)
